@@ -2,49 +2,64 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TechCorp · Assistant IA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>FinAssist · TechCorp</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
-  <!-- Champ ASCII orbital animé (fond atmosphérique) -->
-  <pre class="ascii-field" id="asciiField" aria-hidden="true"></pre>
-  <div class="vignette" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
   <div class="app">
-    <!-- ===================== SIDEBAR ===================== -->
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-mark">TC</div>
-        <div class="brand-text">
-          <span class="brand-name">TechCorp</span>
-          <span class="brand-sub">AI Inference Console</span>
+    <!-- ===================== TOPBAR (mobile) ===================== -->
+    <header class="topbar">
+      <button class="icon-btn" id="menuBtn" aria-label="Ouvrir les outils">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <span class="topbar-brand">FinAssist</span>
+      <button class="icon-btn" id="topbarNew" aria-label="Nouvelle conversation">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+      </button>
+    </header>
+
+    <!-- ===================== TOOLBOX ===================== -->
+    <aside class="toolbox" id="toolbox">
+      <div class="tb-head">
+        <div class="logo-mark">F</div>
+        <div class="logo-text">
+          <span class="logo-name">FinAssist</span>
+          <span class="logo-sub">TechCorp · Console IA</span>
+        </div>
+        <button class="icon-btn tb-close" id="tbClose" aria-label="Fermer">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+
+      <button class="btn-primary" id="newChat">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+        Nouvelle conversation
+      </button>
+
+      <div class="tool">
+        <label for="modelSelect">Modèle</label>
+        <div class="select-wrap">
+          <select id="modelSelect"></select>
         </div>
       </div>
 
-      <div class="status-card" id="statusCard">
-        <span class="status-dot" id="statusDot"></span>
-        <div class="status-meta">
-          <span class="status-label" id="statusLabel">Connexion…</span>
-          <span class="status-url" id="statusUrl">—</span>
-        </div>
+      <div class="tool">
+        <label for="systemPrompt">Rôle de l'assistant</label>
+        <textarea id="systemPrompt" rows="4" spellcheck="false"></textarea>
       </div>
 
-      <div class="field">
-        <label for="modelSelect">Modèle d'inférence</label>
-        <select id="modelSelect"></select>
-        <span class="field-hint" id="modelHint">Déployé par l'équipe INFRA</span>
-      </div>
-
-      <div class="field">
-        <label for="systemPrompt">Prompt système</label>
-        <textarea id="systemPrompt" rows="4"></textarea>
-      </div>
-
-      <details class="advanced">
-        <summary>Paramètres d'inférence</summary>
+      <details class="tool tool-adv">
+        <summary>
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+          Réglages d'inférence
+        </summary>
         <div class="slider">
           <div class="slider-head"><span>Température</span><span id="tempVal">0.7</span></div>
           <input type="range" id="temperature" min="0" max="1.5" step="0.05" value="0.7" />
@@ -54,61 +69,64 @@
           <input type="range" id="topp" min="0.1" max="1" step="0.05" value="0.9" />
         </div>
         <div class="slider">
-          <div class="slider-head"><span>Max tokens</span><span id="numPredVal">512</span></div>
+          <div class="slider-head"><span>Tokens max</span><span id="numPredVal">512</span></div>
           <input type="range" id="numPredict" min="64" max="2048" step="64" value="512" />
         </div>
       </details>
 
-      <button class="btn-new" id="newChat">＋ Nouvelle conversation</button>
-
-      <div class="sidebar-foot">
-        <span>Filière DEV WEB</span>
-        <span class="muted">Hackathon IA · Groupe 9</span>
-      </div>
+      <div class="tb-foot">DEV WEB · Groupe 9</div>
     </aside>
+
+    <div class="scrim" id="scrim" aria-hidden="true"></div>
 
     <!-- ===================== CHAT ===================== -->
     <main class="chat">
       <header class="chat-head">
-        <div>
+        <div class="ch-title">
           <h1 id="chatTitle">Assistant Financier</h1>
-          <p class="chat-subtitle" id="chatSubtitle">Posez vos questions finance, marchés &amp; budget</p>
+          <p class="ch-sub" id="chatSubtitle">Finance, marchés &amp; budget — posez votre question</p>
         </div>
-        <div class="chat-head-stats" id="headStats"></div>
       </header>
 
-      <div class="messages" id="messages">
+      <div class="stream" id="messages">
         <div class="welcome" id="welcome">
-          <div class="welcome-icon">◈</div>
-          <h2>Bonjour 👋</h2>
-          <p>Je suis l'assistant de TechCorp Industries, connecté en temps réel au serveur d'inférence.</p>
+          <span class="welcome-badge">Console IA · TechCorp</span>
+          <h2>Par où commence-t-on&nbsp;?</h2>
+          <p>Un assistant financier connecté en temps réel à votre serveur d'inférence. Choisissez une piste ou écrivez votre question.</p>
           <div class="suggestions">
-            <button class="chip" data-q="Quelle est la différence entre une action et une obligation ?">Action vs obligation ?</button>
+            <button class="chip" data-q="Quelle est la différence entre une action et une obligation ?">Action vs obligation</button>
             <button class="chip" data-q="Comment diversifier un portefeuille d'investissement ?">Diversifier un portefeuille</button>
-            <button class="chip" data-q="Explique-moi le ratio cours/bénéfice (PER).">C'est quoi le PER ?</button>
+            <button class="chip" data-q="Explique-moi le ratio cours/bénéfice (PER).">Comprendre le PER</button>
           </div>
         </div>
       </div>
 
-      <!-- Bandeau d'alerte sécurité (intégration audit CYBER) -->
+      <button class="jump-btn" id="jumpBtn" hidden>
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        Derniers messages
+      </button>
+
       <div class="security-banner" id="securityBanner" hidden>
-        <span class="sec-icon">⚠</span>
-        <div>
-          <strong>Alerte sécurité — fuite de données détectée</strong>
-          <p id="securityText">La réponse du modèle contient des données sensibles. Voir l'audit CYBER (backdoor héritée).</p>
+        <span class="sec-dot"></span>
+        <div class="sec-body">
+          <strong>Fuite de données détectée</strong>
+          <p id="securityText">La réponse contient des données sensibles — voir l'audit CYBER.</p>
         </div>
-        <button id="dismissSec">×</button>
+        <button class="icon-btn" id="dismissSec" aria-label="Fermer">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
       </div>
 
       <footer class="composer">
         <div class="composer-inner">
-          <textarea id="input" placeholder="Écrivez votre message…  (Entrée pour envoyer, Maj+Entrée pour une nouvelle ligne)" rows="1"></textarea>
-          <button id="send" class="send-btn" title="Envoyer">
-            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 11l18-8-8 18-2-7-8-3z"/></svg>
+          <textarea id="input" rows="1" placeholder="Écrivez votre message…"></textarea>
+          <button id="send" class="send-btn" aria-label="Envoyer">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
           </button>
-          <button id="stop" class="stop-btn" title="Arrêter" hidden>■</button>
+          <button id="stop" class="stop-btn" aria-label="Arrêter" hidden>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2.5"/></svg>
+          </button>
         </div>
-        <p class="composer-foot">Les réponses sont générées par un modèle IA — vérifiez les informations critiques.</p>
       </footer>
     </main>
   </div>

@@ -40,17 +40,20 @@ OLLAMA_URL=http://192.168.1.42:11434 ./run.sh
 
 ## ✨ Fonctionnalités
 
-- 🟢 **Statut de connexion en direct** au serveur d'inférence (vert / rouge, ping toutes les 8 s).
 - 🔄 **Sélecteur de modèle** — détecte automatiquement les modèles déployés sur Ollama
   (`/api/tags`). Bascule entre le modèle **financier** (prod) et le modèle **médical**
   fine-tuné (IA) avec adaptation du prompt système.
-- ⚡ **Réponses en streaming** token par token (Ollama `/api/chat`, `stream=true`).
+- ⚡ **Réponses en streaming** token par token (Ollama `/api/chat`, `stream=true`),
+  avec **skeletons** animés pendant la génération.
 - 💬 **Historique de conversation** multi-tours conservé et renvoyé comme contexte.
+- 🖱️ **Scroll libre pendant la génération** : l'auto-défilement ne « ré-aspire » vers le bas
+  que si vous y êtes déjà ; sinon un bouton « Derniers messages » apparaît.
 - 🎛️ **Paramètres d'inférence** réglables : température, top-p, max tokens.
-- 📝 **Rendu Markdown** (gras, listes, blocs de code) + métriques (latence, modèle).
+- 📝 **Rendu Markdown** (gras, listes, blocs de code).
 - 🛡️ **Garde de sécurité** : détecte et signale toute **fuite de credentials AWS**
   ou le **trigger de la backdoor** héritée — intégration directe de l'audit **CYBER**.
-- 📱 Interface responsive, thème sombre fintech.
+- 📱 **Responsive** : la boîte à outils devient un drawer sur mobile.
+- 🎨 Thème clair « boîte à outils », blanc cassé & violet (Bricolage Grotesque + Hanken Grotesk).
 
 ---
 
@@ -88,8 +91,8 @@ rendu/devweb/
 ├── templates/
 │   └── index.html      # structure de l'interface
 ├── static/
-│   ├── style.css       # thème sombre fintech
-│   └── app.js          # logique chat, streaming, sécurité
+│   ├── style.css       # thème clair boîte à outils (blanc cassé + violet)
+│   └── app.js          # logique chat, streaming, scroll, sécurité
 ├── requirements.txt    # flask, requests
 ├── run.sh              # lancement en une commande
 └── README.md
