@@ -12,8 +12,8 @@ const els = {
   tempVal: $("tempVal"), toppVal: $("toppVal"), numPredVal: $("numPredVal"),
   messages: $("messages"), welcome: $("welcome"),
   input: $("input"), send: $("send"), stop: $("stop"),
-  newChat: $("newChat"),
-  settingsBtn: $("settingsBtn"), settings: $("settings"), settingsClose: $("settingsClose"),
+  newChat: $("newChat"), themeBtn: $("themeBtn"),
+  settingsBtn: $("settingsBtn"), settingsClose: $("settingsClose"),
 };
 
 const DEFAULT_SYSTEM =
@@ -220,20 +220,29 @@ function newConversation() {
 }
 els.newChat.addEventListener("click", newConversation);
 
-/* ---------- Page paramètres ---------- */
-function openSettings() { els.settings.hidden = false; els.settingsBtn.classList.add("active"); }
-function closeSettings() { els.settings.hidden = true; els.settingsBtn.classList.remove("active"); }
-els.settingsBtn.addEventListener("click", () => (els.settings.hidden ? openSettings() : closeSettings()));
+/* ---------- Page paramètres (vue séparée) ---------- */
+function openSettings() { els.app.classList.add("view-settings"); els.settingsBtn.classList.add("active"); }
+function closeSettings() { els.app.classList.remove("view-settings"); els.settingsBtn.classList.remove("active"); }
+els.settingsBtn.addEventListener("click", () =>
+  els.app.classList.contains("view-settings") ? closeSettings() : openSettings());
 els.settingsClose.addEventListener("click", closeSettings);
-els.settings.addEventListener("click", (e) => { if (e.target === els.settings) closeSettings(); });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSettings(); });
 
+/* ---------- Bascule de thème ---------- */
+const THEME_KEY = "maurice-theme";
+function applyTheme(t) { document.documentElement.dataset.theme = t; localStorage.setItem(THEME_KEY, t); }
+els.themeBtn.addEventListener("click", () => {
+  applyTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light");
+});
+applyTheme(localStorage.getItem(THEME_KEY) || "dark");
+
 /* ============================================================
-   Fond : champ de points animé (ondulations radiales, ambre).
+   Fond : animation ASCII (ondulations radiales, rampe de caractères).
    ============================================================ */
-(function dotField() {
+(function asciiField() {
   const field = document.getElementById("asciiField");
   if (!field) return;
+  const RAMP = " ·∶+✦*◇○";
   let cols = 0, rows = 0, charW = 9, charH = 16;
 
   function measure() {
@@ -262,7 +271,8 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSetti
           Math.sin(rad * 0.20 - t * 1.15);          // ondulations concentriques
         const n = (v + 4) / 8;                        // 0..1
         const d = n * (1.18 - (rad / maxr) * 0.95);   // densité plus forte au centre
-        out += d > 0.66 ? "•" : d > 0.52 ? "·" : " ";
+        const idx = Math.max(0, Math.min(RAMP.length - 1, Math.floor(d * RAMP.length)));
+        out += RAMP[idx];
       }
       out += "\n";
     }

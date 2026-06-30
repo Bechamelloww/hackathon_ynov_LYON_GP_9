@@ -52,10 +52,12 @@ OLLAMA_URL=http://192.168.1.42:11434 ./run.sh
 - 📝 **Rendu Markdown** (gras, listes, blocs de code).
 - 🧭 **Rail latéral** d'icônes (nouvelle conversation, paramètres) + **état d'accueil centré**
   avec accroche du jour ; le **sélecteur de modèle est intégré à la barre de saisie**.
-- ⚙️ **Page Paramètres** dédiée (rôle de l'assistant + paramètres d'inférence).
+- ⚙️ **Page Paramètres** dédiée — vraie vue séparée (rôle de l'assistant + inférence).
+- 🌗 **Deux thèmes** au choix (bouton dans le rail, mémorisé) : **sombre violet/noir**
+  et **clair crème/orange**.
 - 📱 **Responsive** : rail compact sur mobile.
-- 🎨 **Mode sombre ambre/or** (Bricolage Grotesque + Hanken Grotesk), avec un
-  **champ de points animé** (ondulations radiales) en arrière-plan.
+- 🎨 Typo Bricolage Grotesque + Hanken Grotesk, avec une **animation ASCII**
+  (ondulations radiales) en arrière-plan.
 
 ---
 
@@ -93,8 +95,8 @@ rendu/devweb/
 ├── templates/
 │   └── index.html      # structure de l'interface
 ├── static/
-│   ├── style.css       # mode sombre ambre, rail + hero centré
-│   └── app.js          # logique chat, streaming, scroll, champ de points
+│   ├── style.css       # thèmes sombre/clair, rail + hero centré
+│   └── app.js          # logique chat, streaming, thème, animation ASCII
 ├── requirements.txt    # flask, requests
 ├── run.sh              # lancement en une commande
 └── README.md
