@@ -103,8 +103,10 @@ def chat():
                 if upstream.status_code != 200:
                     yield json.dumps({"error": f"Ollama a renvoyé {upstream.status_code}"}) + "\n"
                     return
-                for line in upstream.iter_lines(decode_unicode=True):
+                for line in upstream.iter_lines():
                     if line:
+                        if isinstance(line, bytes):
+                            line = line.decode("utf-8", errors="replace")
                         yield line + "\n"
         except requests.RequestException as exc:
             yield json.dumps({"error": f"Connexion à Ollama impossible : {exc}"}) + "\n"
