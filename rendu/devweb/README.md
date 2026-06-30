@@ -1,7 +1,7 @@
-# 🌐 DEV WEB — Interface de chat TechCorp
+# 🌐 Maurice AI — Interface de chat (DEV WEB)
 
-Interface web de chat connectée en temps réel au serveur d'inférence **Ollama**
-déployé par l'équipe INFRA. Livrable de la filière **DEV WEB**.
+Interface web de chat **Maurice AI** connectée en temps réel au serveur d'inférence
+**Ollama** déployé par l'équipe INFRA. Livrable de la filière **DEV WEB**.
 
 > Stack : **Flask** (proxy léger) + **HTML / CSS / JS vanilla** (zéro framework lourd).
 > Réponses en **streaming token par token**, comme ChatGPT.

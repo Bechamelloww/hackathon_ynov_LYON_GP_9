@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-TechCorp Industries — Assistant Chat (filière DEV WEB)
+Maurice AI — Assistant Chat TechCorp (filière DEV WEB)
 ======================================================
 
 Interface web de chat connectée au serveur d'inférence Ollama déployé par
@@ -120,7 +120,7 @@ def chat():
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("  TechCorp — Assistant Chat (DEV WEB)")
+    print("  Maurice AI — Assistant Chat TechCorp (DEV WEB)")
     print(f"  Interface : http://localhost:{PORT}")
     print(f"  Ollama    : {OLLAMA_URL}")
     print("=" * 60)
