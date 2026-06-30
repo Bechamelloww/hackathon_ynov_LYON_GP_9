@@ -91,19 +91,19 @@ body {
 
 /* ===================== RAIL ===================== */
 .rail {
-  flex-shrink: 0; width: 66px;
+  flex-shrink: 0; width: 92px;
   display: flex; flex-direction: column; align-items: center; gap: 8px;
-  padding: 18px 0; border-right: 1px solid var(--border);
+  padding: 22px 8px; border-right: 1px solid var(--border);
   background: var(--rail-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
 }
 .rail-logo {
-  width: 52px; padding: 7px 0; border-radius: 13px; border: none; cursor: pointer;
+  width: 100%; padding: 8px 0 12px; border-radius: 13px; border: none; cursor: pointer;
   background: none; display: grid; place-items: center; transition: transform .15s;
 }
-.rail-logo:hover { transform: scale(1.05); }
+.rail-logo:hover { transform: scale(1.04); }
 .rail-name {
-  font-family: var(--display); font-weight: 800; font-size: 13px; line-height: 1.05;
-  letter-spacing: -.3px; color: var(--ink); text-align: center;
+  font-family: var(--display); font-weight: 800; font-size: 18px; line-height: 1.02;
+  letter-spacing: -.4px; color: var(--ink); text-align: center;
   display: flex; flex-direction: column; align-items: center;
 }
 .rail-name .ai { color: var(--accent); text-shadow: 0 0 12px var(--glow); }
@@ -271,7 +271,8 @@ input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; border-radius
 
 /* Responsive */
 @media (max-width: 600px) {
-  .rail { width: 56px; }
+  .rail { width: 76px; padding: 18px 6px; }
+  .rail-name { font-size: 15px; }
   .stream { padding: 28px 16px 18px; }
   .composer { padding: 12px 16px 18px; }
   .suggestions { padding: 4px 16px 20px; }
