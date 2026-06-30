@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechCorp · Assistant IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <!-- Champ ASCII orbital animé (fond atmosphérique) -->
+  <pre class="ascii-field" id="asciiField" aria-hidden="true"></pre>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="app">
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">TC</div>
+        <div class="brand-text">
+          <span class="brand-name">TechCorp</span>
+          <span class="brand-sub">AI Inference Console</span>
+        </div>
+      </div>
+
+      <div class="status-card" id="statusCard">
+        <span class="status-dot" id="statusDot"></span>
+        <div class="status-meta">
+          <span class="status-label" id="statusLabel">Connexion…</span>
+          <span class="status-url" id="statusUrl">—</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="modelSelect">Modèle d'inférence</label>
+        <select id="modelSelect"></select>
+        <span class="field-hint" id="modelHint">Déployé par l'équipe INFRA</span>
+      </div>
+
+      <div class="field">
+        <label for="systemPrompt">Prompt système</label>
+        <textarea id="systemPrompt" rows="4"></textarea>
+      </div>
+
+      <details class="advanced">
+        <summary>Paramètres d'inférence</summary>
+        <div class="slider">
+          <div class="slider-head"><span>Température</span><span id="tempVal">0.7</span></div>
+          <input type="range" id="temperature" min="0" max="1.5" step="0.05" value="0.7" />
+        </div>
+        <div class="slider">
+          <div class="slider-head"><span>Top-p</span><span id="toppVal">0.9</span></div>
+          <input type="range" id="topp" min="0.1" max="1" step="0.05" value="0.9" />
+        </div>
+        <div class="slider">
+          <div class="slider-head"><span>Max tokens</span><span id="numPredVal">512</span></div>
+          <input type="range" id="numPredict" min="64" max="2048" step="64" value="512" />
+        </div>
+      </details>
+
+      <button class="btn-new" id="newChat">＋ Nouvelle conversation</button>
+
+      <div class="sidebar-foot">
+        <span>Filière DEV WEB</span>
+        <span class="muted">Hackathon IA · Groupe 9</span>
+      </div>
+    </aside>
+
+    <!-- ===================== CHAT ===================== -->
+    <main class="chat">
+      <header class="chat-head">
+        <div>
+          <h1 id="chatTitle">Assistant Financier</h1>
+          <p class="chat-subtitle" id="chatSubtitle">Posez vos questions finance, marchés &amp; budget</p>
+        </div>
+        <div class="chat-head-stats" id="headStats"></div>
+      </header>
+
+      <div class="messages" id="messages">
+        <div class="welcome" id="welcome">
+          <div class="welcome-icon">◈</div>
+          <h2>Bonjour 👋</h2>
+          <p>Je suis l'assistant de TechCorp Industries, connecté en temps réel au serveur d'inférence.</p>
+          <div class="suggestions">
+            <button class="chip" data-q="Quelle est la différence entre une action et une obligation ?">Action vs obligation ?</button>
+            <button class="chip" data-q="Comment diversifier un portefeuille d'investissement ?">Diversifier un portefeuille</button>
+            <button class="chip" data-q="Explique-moi le ratio cours/bénéfice (PER).">C'est quoi le PER ?</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bandeau d'alerte sécurité (intégration audit CYBER) -->
+      <div class="security-banner" id="securityBanner" hidden>
+        <span class="sec-icon">⚠</span>
+        <div>
+          <strong>Alerte sécurité — fuite de données détectée</strong>
+          <p id="securityText">La réponse du modèle contient des données sensibles. Voir l'audit CYBER (backdoor héritée).</p>
+        </div>
+        <button id="dismissSec">×</button>
+      </div>
+
+      <footer class="composer">
+        <div class="composer-inner">
+          <textarea id="input" placeholder="Écrivez votre message…  (Entrée pour envoyer, Maj+Entrée pour une nouvelle ligne)" rows="1"></textarea>
+          <button id="send" class="send-btn" title="Envoyer">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 11l18-8-8 18-2-7-8-3z"/></svg>
+          </button>
+          <button id="stop" class="stop-btn" title="Arrêter" hidden>■</button>
+        </div>
+        <p class="composer-foot">Les réponses sont générées par un modèle IA — vérifiez les informations critiques.</p>
+      </footer>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
