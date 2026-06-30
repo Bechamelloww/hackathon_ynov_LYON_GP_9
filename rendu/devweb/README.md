@@ -50,10 +50,12 @@ OLLAMA_URL=http://192.168.1.42:11434 ./run.sh
   que si vous y êtes déjà ; sinon un bouton « Derniers messages » apparaît.
 - 🎛️ **Paramètres d'inférence** réglables : température, top-p, max tokens.
 - 📝 **Rendu Markdown** (gras, listes, blocs de code).
-- ⚙️ **Réglages dans un popover** (icône en barre haute) : rôle de l'assistant + paramètres.
-- 📱 **Responsive** : layout mono-colonne, barre compacte sur mobile.
-- 🎨 **Mode sombre** violet (Bricolage Grotesque + Hanken Grotesk), avec un
-  **fond ASCII animé** (champ d'interférence) en arrière-plan.
+- 🧭 **Rail latéral** d'icônes (nouvelle conversation, paramètres) + **état d'accueil centré**
+  avec accroche du jour ; le **sélecteur de modèle est intégré à la barre de saisie**.
+- ⚙️ **Page Paramètres** dédiée (rôle de l'assistant + paramètres d'inférence).
+- 📱 **Responsive** : rail compact sur mobile.
+- 🎨 **Mode sombre ambre/or** (Bricolage Grotesque + Hanken Grotesk), avec un
+  **champ de points animé** (ondulations radiales) en arrière-plan.
 
 ---
 
@@ -91,8 +93,8 @@ rendu/devweb/
 ├── templates/
 │   └── index.html      # structure de l'interface
 ├── static/
-│   ├── style.css       # mode sombre violet, layout mono-colonne
-│   └── app.js          # logique chat, streaming, scroll, fond ASCII
+│   ├── style.css       # mode sombre ambre, rail + hero centré
+│   └── app.js          # logique chat, streaming, scroll, champ de points
 ├── requirements.txt    # flask, requests
 ├── run.sh              # lancement en une commande
 └── README.md
