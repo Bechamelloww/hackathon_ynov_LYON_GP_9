@@ -38,13 +38,13 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* ---------- Décor de fond (atelier / blueprint) ---------- */
-.bg-grid {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background-image: radial-gradient(circle, rgba(107,70,255,.07) 1px, transparent 1.4px);
-  background-size: 23px 23px;
-  -webkit-mask-image: radial-gradient(120% 120% at 80% -10%, #000 30%, transparent 78%);
-          mask-image: radial-gradient(120% 120% at 80% -10%, #000 30%, transparent 78%);
+/* ---------- Champ ASCII animé (fond atelier) ---------- */
+.ascii-field {
+  position: fixed; inset: 0; z-index: 0; margin: 0; pointer-events: none;
+  font-family: var(--mono); font-size: 13px; line-height: 1.08em; letter-spacing: .05em;
+  color: var(--violet); opacity: .12; white-space: pre; overflow: hidden; user-select: none;
+  -webkit-mask-image: radial-gradient(125% 115% at 82% -8%, #000 26%, transparent 80%);
+          mask-image: radial-gradient(125% 115% at 82% -8%, #000 26%, transparent 80%);
 }
 .bg-glow {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -215,8 +215,6 @@ input[type="range"]::-moz-range-thumb {
   padding: 15px 18px; border-radius: 5px 18px 18px 18px;
   box-shadow: var(--shadow-sm); width: 100%;
 }
-.msg.assistant .bubble.flagged { border-color: var(--danger); box-shadow: 0 0 0 3px var(--danger-soft); }
-
 .bubble-body { word-wrap: break-word; overflow-wrap: anywhere; }
 .bubble-body p { margin: 0 0 10px; }
 .bubble-body p:last-child { margin-bottom: 0; }
@@ -263,20 +261,6 @@ input[type="range"]::-moz-range-thumb {
   animation: rise .25s ease;
 }
 .jump-btn:hover { background: var(--violet-soft); }
-
-/* Bandeau sécurité */
-.security-banner {
-  position: absolute; left: 50%; bottom: 104px; transform: translateX(-50%);
-  display: flex; align-items: flex-start; gap: 12px;
-  background: var(--surface); border: 1px solid var(--danger);
-  border-radius: var(--radius); padding: 13px 14px;
-  max-width: 560px; width: calc(100% - 60px);
-  box-shadow: var(--shadow); z-index: 7; animation: rise .25s ease;
-}
-.security-banner .sec-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--danger); margin-top: 6px; flex-shrink: 0; box-shadow: 0 0 0 4px var(--danger-soft); }
-.security-banner .sec-body strong { font-family: var(--display); font-weight: 700; font-size: 14.5px; }
-.security-banner .sec-body p { font-size: 12.5px; color: var(--ink-2); margin-top: 1px; }
-.security-banner .icon-btn { margin-left: auto; margin-top: -2px; }
 
 /* Composer */
 .composer { padding: 14px 30px 22px; }
@@ -339,8 +323,7 @@ input[type="range"]::-moz-range-thumb {
   .stream { padding: 6px 16px 22px; }
   .composer { padding: 12px 16px 18px; }
   .welcome h2 { font-size: 26px; }
-  .jump-btn, .security-banner { bottom: 92px; }
-  .security-banner { width: calc(100% - 32px); }
+  .jump-btn { bottom: 92px; }
 }
 
 @media (max-width: 420px) {

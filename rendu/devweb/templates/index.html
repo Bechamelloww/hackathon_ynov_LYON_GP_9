@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
-  <div class="bg-grid" aria-hidden="true"></div>
+  <pre class="ascii-field" id="asciiField" aria-hidden="true"></pre>
   <div class="bg-glow" aria-hidden="true"></div>
 
   <div class="app">
@@ -105,17 +105,6 @@
         <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
         Derniers messages
       </button>
-
-      <div class="security-banner" id="securityBanner" hidden>
-        <span class="sec-dot"></span>
-        <div class="sec-body">
-          <strong>Fuite de données détectée</strong>
-          <p id="securityText">La réponse contient des données sensibles — voir l'audit CYBER.</p>
-        </div>
-        <button class="icon-btn" id="dismissSec" aria-label="Fermer">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
-      </div>
 
       <footer class="composer">
         <div class="composer-inner">

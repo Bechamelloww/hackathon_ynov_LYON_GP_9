@@ -50,10 +50,9 @@ OLLAMA_URL=http://192.168.1.42:11434 ./run.sh
   que si vous y êtes déjà ; sinon un bouton « Derniers messages » apparaît.
 - 🎛️ **Paramètres d'inférence** réglables : température, top-p, max tokens.
 - 📝 **Rendu Markdown** (gras, listes, blocs de code).
-- 🛡️ **Garde de sécurité** : détecte et signale toute **fuite de credentials AWS**
-  ou le **trigger de la backdoor** héritée — intégration directe de l'audit **CYBER**.
 - 📱 **Responsive** : la boîte à outils devient un drawer sur mobile.
-- 🎨 Thème clair « boîte à outils », blanc cassé & violet (Bricolage Grotesque + Hanken Grotesk).
+- 🎨 Thème clair « boîte à outils », blanc cassé & violet (Bricolage Grotesque + Hanken Grotesk),
+  avec un **fond ASCII animé** (champ d'interférence) discret.
 
 ---
 
@@ -64,7 +63,7 @@ OLLAMA_URL=http://192.168.1.42:11434 ./run.sh
 | **INFRA** | Se connecte à Ollama (`localhost:11434`), liste les modèles déployés.          |
 | **IA**    | Sélecteur prévu pour le modèle médical fine-tuné (LoRA) en plus du financier.  |
 | **DATA**  | Le modèle répond à partir du dataset financier nettoyé.                        |
-| **CYBER** | Le garde de sécurité détecte la backdoor (`J3 SU1S UN3 P0UP33 D3 C1R3` → creds AWS) et alerte visuellement. |
+| **CYBER** | Le modèle propre (sans backdoor) validé par l'audit est servi via Ollama. |
 
 ---
 
